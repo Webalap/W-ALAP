@@ -1,0 +1,657 @@
+﻿<style>
+    .active {
+        background-color: lightblue
+    }
+
+    .navbar-default .navbar-nav > li > a:hover {
+        background-color: #a9d3fd !important;
+    }
+</style>
+<div class="row">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav col-md-9">
+                <li id="ByWord" class="active"><a><i class="fa fa-file-word-o fa-lg" aria-hidden="true"></i> Word</a></li>
+                <li id="ByChar"><a><i class="fa fa-contao" aria-hidden="true"></i> Char</a></li>
+                <li><a id="btnOff" data-value="1"><i class="fa fa-power-off fa-lg"></i> TTS Turn Off</a></li>
+                <li><a id="btnEditingSupport"><i class="fa fa-pencil fa-lg"></i> Turn On Editing Mode</a></li>
+                <li><a id="btnPdfModeOn"><i class="fa fa-pause fa-lg"></i> Pdf Mode</a></li>
+                <li><a id="btnMathModeOn"><i class="fa fa-address-card fa-lg"></i> Math Mode</a></li>
+                <li><a id="btnCursorModeOn"><i class="fa fa-pause fa-lg"></i> Cursor Mode Off</a></li>
+            </ul>
+            <ul class="nav navbar-nav col-md-3">
+                <li><a id="btnUpgrade"><i class="fa fa-download fa-lg"></i> Upgrade </a></li>
+                <li><a id="btnCompile" class="btncompile"><i class="fa fa-list-alt fa-lg"></i> Compile</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li><a id="btnPause"><i class="fa fa-pause fa-lg"></i> Pause</a></li>
+                <li><a id="btnStop"><i class="fa fa-stop fa-lg"></i> Stop</a></li>
+                <li><a id="btnRefresh"><i class="fa fa-refresh fa-lg"></i> Refresh</a></li>
+                <li><a id="btnPlay"><i class="fa fa-play fa-lg"></i> Speak</a></li>
+
+
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <form id="latexForm" action="Home/CompileLatex">
+                <div id="codeEditor" class="LatexText"></div>
+            </form>
+        </div>
+        <div class="col-md-6" id="colErrors">
+            <div id="pdfViewer" style="height:500px !important;"></div>
+        </div>
+    </div>
+    <input id="CursorModeInput" value="true" hidden="hidden" />
+    <input id="btnPdfModeOnInput" value="true" hidden="hidden" />
+    <div id="divAudio_Player" class="hidden">
+        <audio id="audio_player">
+            <source id="audio_player_wav" src="@Url.Action("Speak", "Home", new { text = "type something in first" })" type="audio/mp3" />
+            <embed height="50" width="100" src="@Url.Action("Speak", "Home", new { text = "type something in first" })">
+        </audio>
+    </div>
+</div>
+<input id="inputPause" hidden="hidden" value="false" />
+<input id="EditingSupport" hidden="hidden" value="false" />
+@section Scripts{
+    <script src="../../Content/LogParser/require.js" data-main="../../Content/LogParser/tests.js"></script>
+    <script type="text/javascript">
+        toastr.options.closeMethod = 'fadeOut';
+        toastr.options.closeDuration = 50;
+        //toastr.options.
+        toastr.options.closeEasing = 'swing';
+        var editor = CodeMirror.fromTextArea(
+            document.getElementById("codeEditor"),
+            {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: "night",
+                tabSize: 4,
+                scroll: false
+            }
+        );
+
+        $(window).ready(function () {
+            PDFObject.embed("", "#pdfViewer");
+            $(".sidenavbars").removeClass("active");
+            $(".sidenavbars").removeClass("open");
+            $("#compiler_nav").addClass("active");
+            $("#ActivePageHeader").text("Compiler");
+            $.ajax({
+                url: '@Url.Action("GetSampleLatex")',
+                success: function (data)
+                {
+                     editor.setValue(data)
+                },
+                error: function (data) {
+                    toastr.error(data);
+                }
+            });
+            $("#btnEditingSupport").on("click", function ()
+            {
+                var stringToRead = "@Web.Services.Settings.EditingPressed";
+                playText(stringToRead);
+
+                $("#btnEditingSupport").empty();
+                var valueEditing = $("#EditingSupport").val();
+                if (valueEditing == 'true') {
+                    $("#btnEditingSupport").append('<i class="fa fa-pencil fa-lg"></i> Turn On Editing Mode');
+                    $("#EditingSupport").val('false');
+                }
+                if (valueEditing == "false") {
+                    $("#EditingSupport").val('true');
+                    $("#btnEditingSupport").append('<i class="fa fa-pencil fa-lg"></i> Turn Off Editing Mode');
+                }
+            });
+            $("#btnPlay").on("click", function ()
+            {
+                var message = editor.getValue();//.split('\n').join('`!');
+                stringToRead = message;
+                playText(message);
+            });
+            $("#btnCursorModeOn").on("click", function ()
+            {
+                var stringToRead = "@Web.Services.Settings.CursorModePressed";
+                playText(stringToRead);
+
+                toggleCursorMode();
+            });
+            var toggleCursorMode = function ()
+            {
+                $("#btnCursorModeOn").empty();
+                $.ajax({
+                    url: '@Url.Action("ToggleCursorMode", "Home")',
+                    method: 'GET',
+                    success: function (data) {
+                        if (data == '@Web.Services.Settings.EnableCursorMode') {
+                            $("#btnCursorModeOn").append('<i class="fa fa-pause"></i> Cursor Mode Off</a>');
+                            $("#CursorModeInput").val("true");
+                        }
+                        if (data == '@Web.Services.Settings.DisableCursorMode') {
+                            $("#btnCursorModeOn").append('<i class="fa fa-play"></i> Cursor Mode On</a>');
+                            $("#CursorModeInput").val("false");
+                        }
+                        playText(data);
+                    },
+                    error: function () { }
+                });
+            }
+            var playText = function (data)
+            {
+                var message = data;//.split('\n').join('`!');
+                var newUrl = '@Url.Action("Speak", "Home")?message=' + encodeURIComponent(message)  + '&timestamp=' + new Date().getTime();
+                var new_audio = $(this).attr('rel');
+                var source = '<audio id="audio_player">';
+                source += '<source id="audio_player_wav" src="' + newUrl + '"  type="audio/mp3" />';
+                source += '</audio>';
+                //play it
+                setTimeout(function() {
+                    $('#divAudio_Player').html(source);
+                    var aud = $('#audio_player').get(0);
+                    aud.play();
+                }, 500);
+            };
+            $("#btnOff").on("click", function ()
+            {
+                $.ajax({
+                    url: '@Url.Action("ToggleTTSState","Home")',
+                    method: 'POST',
+                    success: function (data) {
+                        $("#btnOff").empty();
+                        if (data == '@Web.Services.Settings.TurnOffCompleteTTSSystem') {
+                            $("#btnOff").append('<i class="fa fa-power-off fa-lg"></i> TTS Turn On');
+                            toastr.success('TTS has been stopped.');
+                        }
+                        else {
+                            $("#btnOff").append('<i class="fa fa-power-off fa-lg"></i> TTS Turn Off');
+                            toastr.success('TTS has been enabled.');
+                            stringToRead = "TTS has been enabled.";
+                            playText(stringToRead);
+                            return false;
+                        }
+                    },
+                    error: function () {
+
+                    }});
+            });
+
+            $("#btnPause").on("click", function ()
+            {
+                if (stringToRead == '') {
+                    return;
+                }
+                $("#btnPause").empty();
+                if ($("#inputPause").val() == 'true') {
+                    $("#btnPause").append('<i class="fa fa-pause"></i> Pause</a>');
+                    $("#audio_player").trigger("play");
+                    $("#inputPause").val('false');
+                }
+                else {
+                    $("#audio_player").trigger("pause");
+                    $("#inputPause").val('true');
+                    $("#btnPause").append('<i class="fa fa-play"></i> Resume</a>');
+                }
+                toastr.success('Audio has been Paused.');
+            });
+
+            $("#btnStop").on("click", function ()
+            {
+                $("#audio_player").trigger("pause");
+                $("#audio_player").currentTime = 0;
+                stringToRead = "@Web.Services.Settings.TurnOffTTSSystem";
+                playText(stringToRead);
+                $("#btnPause").empty();
+                $("#btnPause").append('<i class="fa fa-pause"></i> Pause</a>');
+                $("#inputPause").val('false');
+                toastr.success('Audio has been stopped.');
+                stringToRead = '';
+            });
+            $("#btnRefresh").on("click", function ()
+            {
+                stringToRead = '';
+                playText('');
+            });
+            $("#ByChar").on("click", function () {
+                var stringToRead = "@Web.Services.Settings.ChracterModePressed";
+                playText(stringToRead);
+
+                $("#ByWord").removeClass("active");
+                $("#ByChar").addClass("active");
+                $.ajax({
+                    url: '@Url.Action("ByChar", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                        if (data.ByChar) {
+                            toastr.success('Mode has been changed to Character mode.');
+                        }
+                    },
+                    error: function ()
+                    {
+                         toastr.error('Mode has been not changed to Charcter mode.');
+                    }
+                });
+            });
+            $("#btnPdfModeOn").on("click", function () {
+                var stringToRead = "@Web.Services.Settings.PdfPressed";
+                playText(stringToRead);
+
+                $("#btnPdfModeOn").empty();
+                $.ajax({
+                    url: '@Url.Action("TogglePdfMode", "Home")',
+                    method: 'GET',
+                    success: function (data) {
+                        if (data == '@Web.Services.Settings.EnablePdfMode') {
+                            $("#btnPdfModeOn").append('<i class="fa fa-pause"></i> PDF Mode Off</a>');
+                            $("#btnPdfModeOnInput").val("false");
+                        }
+                        if (data == '@Web.Services.Settings.DisablePdfMode') {
+                            $("#btnPdfModeOn").append('<i class="fa fa-play"></i> PDF Mode On</a>');
+                            $("#btnPdfModeOnInput").val("true");
+                        }
+                        var message = editor.getValue();//.split('\n').join('`!');
+                        playText(message);
+
+                    },
+                    error: function () { }
+                });
+            });
+            $("#btnMathModeOn").on("click", function ()
+            {
+                var message = editor.getValue().replace(/\n/ig, '`~`');;//.split('\n').join('`!');
+                $.ajax({
+                    url: "@Url.Action("GetFilterLatexSourceCodeUsingOpenDetex", "Home")?document=" + message,
+                    method: "Get",
+                    success: function (data)
+                    {
+                        playText(data);
+                    },
+                    error: function (e)
+                    {
+                        toastr.error(e.message);
+                    }
+                });
+            });
+
+            $("#btnUpgrade").on("click", function ()
+            {
+                var stringToRead = "@Web.Services.Settings.UpgradePressed";
+                playText(stringToRead);
+
+                $.ajax({
+                    url: "@Url.Action("UpgradePackages","Home")",
+                    method: "Get",
+                    success: function (data)
+                    {
+                        if (data.error) {
+                            toastr.success(data.message);
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    },
+                    error: function (e)
+                    {
+                        toastr.error(e.message);
+                    }
+                });
+            });
+
+            $("#ByWord").on("click", function () {
+                var stringToRead = "@Web.Services.Settings.WordPressed";
+                playText(stringToRead);
+                $("#audio_player").trigger("pause");
+                $("#ByChar").removeClass("active");
+                $("#ByWord").addClass("active");
+                $.ajax({
+                    url: '@Url.Action("ByWord", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                        if (data.ByWord) {
+                            toastr.success('Mode has been changed to Word mode.');
+                        }
+                    },
+                    error: function ()
+                    {
+                        toastr.error('Mode has been not changed to Charcter mode.');
+                    }
+                });
+            });
+            @*$(".btncompile").on("click", function ()
+            {
+                stringToRead = "@Web.Services.Settings.Compile";
+                playText(stringToRead);
+            });*@
+            $(document).on("keydown", "#latexForm", function (e) {
+                var stringToRead = "@Web.Services.Settings.NoFurtherText";
+                var lineNumber = editor.getCursor().line;
+                var columnNumber = editor.getCursor().ch;
+                //Editting Mode
+                var valueEditing = $("#EditingSupport").val();
+                if (((e.keyCode == 37) || (e.keyCode == 38) || (e.keyCode == 39) || (e.keyCode == 40))
+                    && valueEditing == "true") {
+                    //Left Arraow
+                    if ((e.keyCode == 37)) //Left Arrow
+                    {
+                        var lineString = editor.getLine(lineNumber);
+                        var charToSpeak = lineString.substring(columnNumber, columnNumber + 1);
+                        playText(charToSpeak);
+                    }
+                    //Up Arraow
+                    if ((e.keyCode == 38)) //Up Arrow
+                    {
+                        var stringToSpeak = "You are on Line Number " + (lineNumber + 1) + " and column number" + columnNumber;
+                        playText(stringToSpeak);
+                    }
+                    //Right Arraow
+                    if ((e.keyCode == 39)) //Right Arrow
+                    {
+                        var lineString = editor.getLine(lineNumber);
+                        var charToSpeak = lineString.substring(columnNumber - 1 , columnNumber);
+                        playText(charToSpeak);
+                    }
+                    //Down Arraow
+                    if ((e.keyCode == 40)) //Left Arrow
+                    {
+                        var stringToSpeak = "You are on Line Number " + (lineNumber + 1) + " and column number" + columnNumber;
+                        playText(stringToSpeak);
+                    }
+                }
+                if (((e.keyCode == 37) || (e.keyCode == 38) || (e.keyCode == 39) || (e.keyCode == 40))
+                    && valueEditing == "false") {
+                    return false;
+                }
+                if ((e.keyCode == 13) && e.shiftKey) { //Enter	13
+                    // Math Mode pdf mode speak
+                    var message = editor.getValue().replace(/\n/ig, '`~`');;//.split('\n').join('`!');
+                    $.ajax({
+                        url: "@Url.Action("GetFilterLatexSourceCodeUsingOpenDetex", "Home")?document=" + message,
+                        method: "Get",
+                        success: function (data)
+                        {
+                            playText(data);
+                        },
+                        error: function (e)
+                        {
+                            toastr.error(e.message);
+                        }
+                    });
+                    return false;
+                };
+                if ((e.keyCode == 71) && e.shiftKey) { //g	71
+                    //TTS speaks line number of the cursor
+                    stringToRead = lineNumber + 1;
+                    playText(stringToRead);
+                    return false;
+                };
+                if ((e.keyCode == 72) && e.shiftKey) { //h	72
+                    //To enable and disable curser mode
+                    toggleCursorMode();
+                    return false;
+                };
+                if ((e.keyCode == 73) && e.shiftKey) { //i 73
+                    //Speaks text from current cursor position toend of line.
+                    //It Speaks “No further text” if there is no text
+                    stringToRead = editor.getLine(lineNumber).slice(columnNumber);
+                    if (stringToRead == '') {
+                        stringToRead = '@Web.Services.Settings.NoFurtherText';
+                    }
+                    playText(stringToRead);
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 74) && e.shiftKey) { //j	74
+                    //Speaks from immediate word at which the cursor is currently appearing
+                    //to end of line.Speaks “No further text” if there is no text
+                    stringToRead = editor.getLine(lineNumber).slice(columnNumber);
+                    if (stringToRead =='') {
+                        stringToRead = "@Web.Services.Settings.EmptyLine";
+                    }
+                    playText(stringToRead);
+                    stringToRead = '';
+                    return false;
+
+                }
+                if ((e.keyCode == 75) && e.shiftKey) { //k	75
+                    //Speaks from start of the line till cursorposition
+                    stringToRead = editor.getLine(lineNumber).substring(0, columnNumber + 1);
+                    if (stringToRead == '') {
+                        stringToRead = "@Web.Services.Settings.EmptyLine";
+                    }
+                    playText(stringToRead);
+                    //stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 76) && e.shiftKey) { //l	76
+                    //Speaks complete line where the cursor is at.Speaks “empty line”
+                    //if there is no text
+                    stringToRead = editor.getLine(lineNumber);
+                    if (stringToRead == "") {
+                        stringToRead = "@Web.Services.Settings.EmptyLine";
+                    }
+                    playText(stringToRead);
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 77) && e.shiftKey) { //m	77
+                    //Speaks from immediate word to end of the document.
+                    stringToRead = editor.getLine(lineNumber);
+                    var columnToRead = columnNumber;
+                    //columnNumber to calculate
+                    if (stringToRead == '') {
+                        stringToRead = "@Web.Services.Settings.EmptyLine";
+                        playText(stringToRead);
+                        stringToRead = '';
+                        return false;
+                    }
+                    var stringToReadIteration = stringToRead;
+                    for (var i = 0; i < stringToRead.length; i++) {
+                        var indexof = stringToReadIteration.indexOf(" ");
+                        if (indexof == -1) {
+                            break;
+                        }
+                        if (indexof < columnToRead) {
+                            stringToReadIteration = stringToReadIteration.substring(indexof + 1, stringToRead.length);
+                            columnToRead -= (indexof + 1);
+                        }
+                        else {
+                            break
+                        }
+                    }
+                    playText(stringToReadIteration);
+                    stringToRead = '';
+                    return false;
+                }
+
+                if ((e.keyCode == 78 && e.shiftKey)) { //n 78
+                    var message = editor.getValue();//.split('\n').join('`!');
+                    stringToRead = message;
+                    playText(message);
+                }
+                if ((e.keyCode == 79) && e.shiftKey) { //o	79
+                    //To turn the TTS of the system ON, by default it is in ON state
+                    stringToRead = "@Web.Services.Settings.TurnOnTTSSystem";
+                    playText(stringToRead);
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 81) && e.shiftKey) { //q	81
+                    //To turn the TTS of the whole system OFF
+                    $.ajax({
+                    url: '@Url.Action("ToggleTTSState","Home")',
+                    method: 'POST',
+                    success: function (data) {
+                        $("#btnOff").empty();
+                        if (data == '@Web.Services.Settings.TurnOffCompleteTTSSystem') {
+                            $("#btnOff").append('<i class="fa fa-power-off fa-lg"></i> TTS Turn On');
+                            toastr.success('TTS has been stopped.');
+                        }
+                        else {
+                            $("#btnOff").append('<i class="fa fa-power-off fa-lg"></i> TTS Turn Off');
+                            toastr.success('TTS has been enabled.');
+                            stringToRead = "TTS has been enabled.";
+                            playText(stringToRead);
+                            return false;
+                        }
+                    },
+                    error: function () {
+
+                    }});
+                    return false;
+                }
+                if ((e.keyCode == 68) && e.shiftKey) { //d	68
+                    //Starts reading from start of the document to cursor
+                    stringToRead = '';
+                    for (var i = 0; i < lineNumber + 1; i++) {
+                        if (i != lineNumber) {
+                            stringToRead += editor.getLine(i);
+                        }
+                        else {
+                            stringToRead += editor.getLine(i).substring(0, columnNumber);
+                        }
+
+                    }
+                    playText(stringToRead);
+                    //$("#btnPlay").click();
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 80) && e.shiftKey) { //p	80
+                    //To pause the TTS prompts
+                    $("#inputPause").val('false');
+                    $("#btnPause").empty();
+                    $("#btnPause").append('<i class="fa fa-pause"></i> Pause</a>');
+                    $("#audio_player").trigger("pause");
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 82) && e.shiftKey) { //r	82
+                    //To Resume the paused state of the TTS
+                    stringToRead = "@Web.Services.Settings.TTSSystemIsResumed";
+                    $("#inputPause").val('true');
+                    $("#btnPause").empty();
+                    $("#btnPause").append('<i class="fa fa-play"></i> Resume</a>');
+                    $("#audio_player").trigger("play");
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 69) && e.shiftKey) { //e	69
+                    //To set the TTS in ready state even if it is in paused state
+                    stringToRead = "@Web.Services.Settings.TTSSystemIsReady";
+                    playText(stringToRead);
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 83) && e.shiftKey) { //s	83
+                    //Compiling code
+                    $("#btnCompile").click();
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 87) && e.shiftKey) { //w	87
+                    //To set verbosity level of TTS by word (default state)
+                    stringToRead = "@Web.Services.Settings.VerbosityLevelOfTTSByWord";
+                    playText(stringToRead);
+                    $("#ByWord").click();
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 67) && e.shiftKey) { //c	67
+                    //To set verbosity level of TTS by character
+                    stringToRead = "@Web.Services.Settings.VerbosityLevelOfTTSByChar";
+                    playText(stringToRead);
+                    window.setTimeout(function ()
+                    {
+                        $("#ByChar").click();
+                    }, 1000);
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 85) && e.shiftKey) {//u	85
+                    //Cursor Mode Toggle
+                    toggleCursorMode();
+                }
+                if ((e.keyCode == 84) && e.shiftKey) {//t	84
+                    var value = $(".tableForErrors");
+                    for (var i = 0; i < value.length; i++) {
+                        SpeakError(value[i]);
+                    }
+                    stringToRead = '';
+                    return false;
+                }
+                if ((e.keyCode == 70) && e.shiftKey) { //f	70
+                    //To set verbosity level of TTS by character
+                    window.setTimeout(function ()
+                    {
+                        $("#btnEditingSupport").click();
+                    }, 1000);
+                    stringToRead = '';
+                    return false;
+                }
+                if (e.keyCode == 13) {       // Speak New line on Enter
+                    //Speaks from immediate word to end of the document.
+                    var stringToRead = "@Web.Services.Settings.NewLine";
+                    //TODO
+                    playText(stringToRead);
+                    return false;
+                    stringToRead = '';
+                }
+                if (e.key == " ") {
+                    // Speak Imidiate word on space and return
+                    //columnNumber
+                    //Word Number to read
+                    stringToRead = editor.getLine(lineNumber).substring(0, columnNumber);
+                    var wordsInString = stringToRead.split(" ");
+                    var wordToRead = wordsInString[wordsInString.length - 1];
+                    playText(wordToRead);
+                }
+                // Implement Cursor play text
+                var cursorModeonOff = $("#CursorModeInput").val();
+                if (cursorModeonOff == "true" && e.keyCode != 13 && !e.shiftKey) {
+                    // Speak Chracter on Cursor mode
+                    var s = String.fromCharCode(e.which);
+                    if ((s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) ||
+                        (s.toUpperCase() !== s && s.toLowerCase() === s && e.shiftKey)) {
+                        playText("@Web.Services.Settings.CapsKeyIsOn");
+
+                    }
+                    if ((e.key != " ") && !
+                        (((e.keyCode == 37) || (e.keyCode == 38) || (e.keyCode == 39) || (e.keyCode == 40))
+                            && valueEditing == "true")
+                    )
+                    {
+                        playText(e.key);
+                    }
+
+                }
+                else {
+                    // Speak Previous word
+                    if (e.key == " ") {
+
+                    }
+                }
+            });
+            var SpeakError = function (error) {
+            var ErrorText = error.getAttribute("name");
+            $.ajax({
+                    url: '@Url.Action("ByWord", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                    },
+                    error: function ()
+                    {
+                    }
+            });
+            playText(ErrorText);
+            };
+
+        });
+
+    </script>
+}

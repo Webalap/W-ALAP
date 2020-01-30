@@ -1,0 +1,49 @@
+C:\Users\Matteo\documents\visual studio 2015\Projects\LatexTest\LatexDocument\bin\Debug\LatexDocument.dll
+C:\Users\Matteo\documents\visual studio 2015\Projects\LatexTest\LatexDocument\bin\Debug\LatexDocument.pdb
+C:\Users\Matteo\documents\visual studio 2015\Projects\LatexTest\LatexDocument\obj\Debug\LatexDocument.dll
+C:\Users\Matteo\documents\visual studio 2015\Projects\LatexTest\LatexDocument\obj\Debug\LatexDocument.pdb
+C:\Users\Matteo\documents\visual studio 2015\Projects\LatexTest\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocumentExample\LatexDocument\bin\Debug\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocumentExample\LatexDocument\bin\Debug\LatexDocument.pdb
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocumentExample\LatexDocument\obj\Debug\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocumentExample\LatexDocument\obj\Debug\LatexDocument.pdb
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\bin\Debug\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\bin\Debug\LatexDocument.pdb
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\obj\Debug\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\obj\Debug\LatexDocument.pdb
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\LatexDocument-master\LatexDocument\bin\Debug\LatexDocument.dll
+D:\LatexDocument-master\LatexDocument\bin\Debug\LatexDocument.pdb
+D:\LatexDocument-master\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\LatexDocument-master\LatexDocument\obj\Debug\LatexDocument.csproj.CoreCompileInputs.cache
+D:\LatexDocument-master\LatexDocument\obj\Debug\LatexDocument.dll
+D:\LatexDocument-master\LatexDocument\obj\Debug\LatexDocument.pdb
+D:\WorkSpace\DotNet\Web\LatexDocument\bin\Debug\LatexDocument.dll
+D:\WorkSpace\DotNet\Web\LatexDocument\bin\Debug\LatexDocument.pdb
+D:\WorkSpace\DotNet\Web\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\WorkSpace\DotNet\Web\LatexDocument\obj\Debug\LatexDocument.csproj.CoreCompileInputs.cache
+D:\WorkSpace\DotNet\Web\LatexDocument\obj\Debug\LatexDocument.dll
+D:\WorkSpace\DotNet\Web\LatexDocument\obj\Debug\LatexDocument.pdb
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\bin\Debug\LatexDocument.dll
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\bin\Debug\LatexDocument.pdb
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Debug\LatexDocument.csproj.CoreCompileInputs.cache
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Debug\LatexDocument.dll
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Debug\LatexDocument.pdb
+D:\WebLatex\WebTexk\LatexDocument\bin\Debug\LatexDocument.dll
+D:\WebLatex\WebTexk\LatexDocument\bin\Debug\LatexDocument.pdb
+D:\WebLatex\WebTexk\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\WebLatex\WebTexk\LatexDocument\obj\Debug\LatexDocument.csproj.CoreCompileInputs.cache
+D:\WebLatex\WebTexk\LatexDocument\obj\Debug\LatexDocument.dll
+D:\WebLatex\WebTexk\LatexDocument\obj\Debug\LatexDocument.pdb
+D:\github\webtekx\WebTexk\LatexDocument\bin\Debug\LatexDocument.dll
+D:\github\webtekx\WebTexk\LatexDocument\bin\Debug\LatexDocument.pdb
+D:\github\webtekx\WebTexk\LatexDocument\obj\Debug\LatexDocument.csprojResolveAssemblyReference.cache
+D:\github\webtekx\WebTexk\LatexDocument\obj\Debug\LatexDocument.dll
+D:\github\webtekx\WebTexk\LatexDocument\obj\Debug\LatexDocument.pdb
+C:\Users\as\Documents\WebTexk\LatexDocument\bin\Debug\LatexDocument.dll
+C:\Users\as\Documents\WebTexk\LatexDocument\bin\Debug\LatexDocument.pdb
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Debug\LatexDocument.csprojAssemblyReference.cache
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Debug\LatexDocument.csproj.CoreCompileInputs.cache
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Debug\LatexDocument.dll
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Debug\LatexDocument.pdb

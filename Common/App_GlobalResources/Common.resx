@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Bonus_1_001" xml:space="preserve">
+    <value>Retail Sales Commissions</value>
+  </data>
+  <data name="Bonus_2_021" xml:space="preserve">
+    <value>Enhanced Personal Commission</value>
+  </data>
+  <data name="Bonus_2_022" xml:space="preserve">
+    <value>Enhanced Personal Commission Training Bonus</value>
+  </data>
+  <data name="Bonus_2_023" xml:space="preserve">
+    <value>Management Level Bonus</value>
+  </data>
+  <data name="Bonus_2_024" xml:space="preserve">
+    <value>Enroller Bonus</value>
+  </data>
+  <data name="Bonus_2_025" xml:space="preserve">
+    <value>Leader Generation Bonus</value>
+  </data>
+  <data name="Bonus_2_026" xml:space="preserve">
+    <value>Generation Bonus</value>
+  </data>
+  <data name="Bonus_1_111" xml:space="preserve">
+    <value>Party Commissions</value>
+  </data>
+  <data name="CreditCardType_01" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="CreditCardType_02" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="CreditCardType_03" xml:space="preserve">
+    <value>MasterCard</value>
+  </data>
+  <data name="CreditCardType_04" xml:space="preserve">
+    <value>Amex</value>
+  </data>
+  <data name="CreditCardType_05" xml:space="preserve">
+    <value>Discover</value>
+  </data>
+  <data name="CreditCardType_06" xml:space="preserve">
+    <value>Switch</value>
+  </data>
+  <data name="CreditCardType_07" xml:space="preserve">
+    <value>Solo</value>
+  </data>
+  <data name="CreditCardType_08" xml:space="preserve">
+    <value>JCB</value>
+  </data>
+  <data name="CreditCardType_09" xml:space="preserve">
+    <value>Maestro</value>
+  </data>
+  <data name="CreditCardType_10" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="CreditCardType_11" xml:space="preserve">
+    <value>Laser</value>
+  </data>
+  <data name="CreditCardType_12" xml:space="preserve">
+    <value>ECMC</value>
+  </data>
+  <data name="CreditCardType_13" xml:space="preserve">
+    <value>BHS</value>
+  </data>
+  <data name="CreditCardType_14" xml:space="preserve">
+    <value>IKEA</value>
+  </data>
+  <data name="CreditCardType_15" xml:space="preserve">
+    <value>Diners</value>
+  </data>
+  <data name="CreditCardType_16" xml:space="preserve">
+    <value>CB</value>
+  </data>
+  <data name="CreditCardType_17" xml:space="preserve">
+    <value>Carte Bleue</value>
+  </data>
+  <data name="CreditCardType_18" xml:space="preserve">
+    <value>Dankort</value>
+  </data>
+  <data name="CreditCardType_19" xml:space="preserve">
+    <value>Aurore</value>
+  </data>
+  <data name="CreditCardType_20" xml:space="preserve">
+    <value>GE Capital</value>
+  </data>
+  <data name="CreditCardType_21" xml:space="preserve">
+    <value>AirPlus</value>
+  </data>
+  <data name="CreditCardType_22" xml:space="preserve">
+    <value>UATP</value>
+  </data>
+  <data name="CreditCardType_23" xml:space="preserve">
+    <value>Carte Blanche</value>
+  </data>
+  <data name="CreditCardType_24" xml:space="preserve">
+    <value>Visa Electron</value>
+  </data>
+  <data name="CreditCardType_25" xml:space="preserve">
+    <value>JAL</value>
+  </data>
+  <data name="CreditCardType_26" xml:space="preserve">
+    <value>GE Money</value>
+  </data>
+  <data name="CreditCardType_27" xml:space="preserve">
+    <value>En Route</value>
+  </data>
+  <data name="CreditCardType_28" xml:space="preserve">
+    <value>Carta Si</value>
+  </data>
+  <data name="CreditCardType_29" xml:space="preserve">
+    <value>Galeria</value>
+  </data>
+  <data name="CreditCardType_30" xml:space="preserve">
+    <value>CRM Falabella</value>
+  </data>
+  <data name="CreditCardType_31" xml:space="preserve">
+    <value>Debito Maestro</value>
+  </data>
+  <data name="CreditCardType_32" xml:space="preserve">
+    <value>V PAY</value>
+  </data>
+  <data name="CreditCardType_33" xml:space="preserve">
+    <value>China UnionPay</value>
+  </data>
+  <data name="CustomerStatus_00" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="CustomerStatus_01" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="CustomerStatus_02" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="CustomerStatus_03" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="CustomerStatus_04" xml:space="preserve">
+    <value>Terminated</value>
+  </data>
+  <data name="CustomerStatus_05" xml:space="preserve">
+    <value>Pending Termination</value>
+  </data>
+  <data name="CustomerStatus_06" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="CustomerType_01" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="CustomerType_02" xml:space="preserve">
+    <value>Retail Customer</value>
+  </data>
+  <data name="CustomerType_03" xml:space="preserve">
+    <value>Independent Ambassador</value>
+  </data>
+  <data name="CustomerType_04" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="CustomerType_05" xml:space="preserve">
+    <value>Host Prospect</value>
+  </data>
+  <data name="CustomerType_06" xml:space="preserve">
+    <value>Lead</value>
+  </data>
+  <data name="CustomerType_07" xml:space="preserve">
+    <value>Party Guest</value>
+  </data>
+  <data name="CustomerType_08" xml:space="preserve">
+    <value>Party</value>
+  </data>
+  <data name="FrequencyType_01" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="FrequencyType_02" xml:space="preserve">
+    <value>Every Two Weeks</value>
+  </data>
+  <data name="FrequencyType_03" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="FrequencyType_04" xml:space="preserve">
+    <value>Quarterly</value>
+  </data>
+  <data name="FrequencyType_05" xml:space="preserve">
+    <value>Twice a Year</value>
+  </data>
+  <data name="FrequencyType_06" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="FrequencyType_07" xml:space="preserve">
+    <value>Bi-Monthly</value>
+  </data>
+  <data name="FrequencyType_08" xml:space="preserve">
+    <value>Every 4 weeks</value>
+  </data>
+  <data name="FrequencyType_09" xml:space="preserve">
+    <value>Every 6 Weeks</value>
+  </data>
+  <data name="FrequencyType_10" xml:space="preserve">
+    <value>Every 8 Weeks</value>
+  </data>
+  <data name="FrequencyType_11" xml:space="preserve">
+    <value>Every 12 Weeks</value>
+  </data>
+  <data name="Language_000" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="OrderStatus_00" xml:space="preserve">
+    <value>Incomplete</value>
+  </data>
+  <data name="OrderStatus_01" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="OrderStatus_02" xml:space="preserve">
+    <value>CC Declined</value>
+  </data>
+  <data name="OrderStatus_03" xml:space="preserve">
+    <value>ACH Declined</value>
+  </data>
+  <data name="OrderStatus_04" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="OrderStatus_05" xml:space="preserve">
+    <value>CC Pending</value>
+  </data>
+  <data name="OrderStatus_06" xml:space="preserve">
+    <value>ACH Pending</value>
+  </data>
+  <data name="OrderStatus_07" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="OrderStatus_08" xml:space="preserve">
+    <value>Printed</value>
+  </data>
+  <data name="OrderStatus_09" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="OrderStatus_10" xml:space="preserve">
+    <value>Pending Inventory</value>
+  </data>
+  <data name="PayableType_00" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="PayableType_01" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="PayableType_02" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="PayableType_03" xml:space="preserve">
+    <value>Credit Voucher</value>
+  </data>
+  <data name="PayableType_04" xml:space="preserve">
+    <value>Net 30</value>
+  </data>
+  <data name="PayableType_05" xml:space="preserve">
+    <value>Net 60</value>
+  </data>
+  <data name="PayableType_06" xml:space="preserve">
+    <value>Use Credit</value>
+  </data>
+  <data name="PayableType_07" xml:space="preserve">
+    <value>ACH Debit</value>
+  </data>
+  <data name="PayableType_08" xml:space="preserve">
+    <value>Bank Draft</value>
+  </data>
+  <data name="PayableType_09" xml:space="preserve">
+    <value>Wire Transfer</value>
+  </data>
+  <data name="PayableType_10" xml:space="preserve">
+    <value>Point Redemption</value>
+  </data>
+  <data name="PayableType_11" xml:space="preserve">
+    <value>COD</value>
+  </data>
+  <data name="PayableType_12" xml:space="preserve">
+    <value>Money Order</value>
+  </data>
+  <data name="PayableType_13" xml:space="preserve">
+    <value>Bank Deposit</value>
+  </data>
+  <data name="PayableType_14" xml:space="preserve">
+    <value>Other 1</value>
+  </data>
+  <data name="PayableType_15" xml:space="preserve">
+    <value>Other 2</value>
+  </data>
+  <data name="PayableType_16" xml:space="preserve">
+    <value>Other 3</value>
+  </data>
+  <data name="PayableType_17" xml:space="preserve">
+    <value>Wallet</value>
+  </data>
+  <data name="PaymentType_00" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="PaymentType_01" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="PaymentType_02" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="PaymentType_03" xml:space="preserve">
+    <value>Credit Voucher</value>
+  </data>
+  <data name="PaymentType_04" xml:space="preserve">
+    <value>Net 30</value>
+  </data>
+  <data name="PaymentType_05" xml:space="preserve">
+    <value>Net 60</value>
+  </data>
+  <data name="PaymentType_06" xml:space="preserve">
+    <value>Use Credit</value>
+  </data>
+  <data name="PaymentType_07" xml:space="preserve">
+    <value>ACH Debit</value>
+  </data>
+  <data name="PaymentType_08" xml:space="preserve">
+    <value>Bank Draft</value>
+  </data>
+  <data name="PaymentType_09" xml:space="preserve">
+    <value>Wire Transfer</value>
+  </data>
+  <data name="PaymentType_10" xml:space="preserve">
+    <value>Point Redemption</value>
+  </data>
+  <data name="PaymentType_11" xml:space="preserve">
+    <value>COD</value>
+  </data>
+  <data name="PaymentType_12" xml:space="preserve">
+    <value>Money Order</value>
+  </data>
+  <data name="PaymentType_13" xml:space="preserve">
+    <value>Bank Deposit</value>
+  </data>
+  <data name="PaymentType_14" xml:space="preserve">
+    <value>Other 1</value>
+  </data>
+  <data name="PaymentType_15" xml:space="preserve">
+    <value>Other 2</value>
+  </data>
+  <data name="PaymentType_16" xml:space="preserve">
+    <value>Other 3</value>
+  </data>
+  <data name="PaymentType_17" xml:space="preserve">
+    <value>Wallet</value>
+  </data>
+  <data name="PeriodType_001" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="PeriodType_002" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="PointAccount_01" xml:space="preserve">
+    <value>Host Rewards Cash</value>
+  </data>
+  <data name="PointAccount_02" xml:space="preserve">
+    <value>Host 1/2 off credits</value>
+  </data>
+  <data name="PointAccount_03" xml:space="preserve">
+    <value>Bookings Rewards Cash</value>
+  </data>
+  <data name="PointAccount_04" xml:space="preserve">
+    <value>Party Sales Total</value>
+  </data>
+  <data name="PointAccount_05" xml:space="preserve">
+    <value>Booking Rewards Earned</value>
+  </data>
+  <data name="Rank_00" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Rank_01" xml:space="preserve">
+    <value>Ambassador</value>
+  </data>
+  <data name="Rank_10" xml:space="preserve">
+    <value>Ambassador</value>
+  </data>
+  <data name="Rank_15" xml:space="preserve">
+    <value>Senior Ambassador</value>
+  </data>
+  <data name="Rank_20" xml:space="preserve">
+    <value>Associate Director</value>
+  </data>
+  <data name="Rank_30" xml:space="preserve">
+    <value>Director</value>
+  </data>
+  <data name="Rank_40" xml:space="preserve">
+    <value>Senior Director</value>
+  </data>
+  <data name="Rank_50" xml:space="preserve">
+    <value>Executive Director</value>
+  </data>
+  <data name="Rank_60" xml:space="preserve">
+    <value>National Director</value>
+  </data>
+  <data name="Subscription_01" xml:space="preserve">
+    <value>Web Platform (Backoffice) Subscription</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot Your Password?</value>
+  </data>
+  <data name="ForgotPasswordInstructions" xml:space="preserve">
+    <value>Enter your login ID (usually email) and we'll email you instructions to reset your password.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Please re-enter your password</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="WebCategory_15" xml:space="preserve">
+    <value>Supplies</value>
+  </data>
+  <data name="WebCategory_16" xml:space="preserve">
+    <value>Beauty</value>
+  </data>
+  <data name="WebCategory_17" xml:space="preserve">
+    <value>Handbags</value>
+  </data>
+  <data name="WebCategory_73" xml:space="preserve">
+    <value>Jewelry</value>
+  </data>
+  <data name="WebCategory_74" xml:space="preserve">
+    <value>Accessories</value>
+  </data>
+  <data name="WebCategory_95" xml:space="preserve">
+    <value>Spring 17</value>
+  </data>
+</root>

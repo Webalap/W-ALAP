@@ -1,0 +1,312 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+
+
+using Common.Api.ExigoWebService;
+using Common.ModelsEx.Shopping.Discounts;
+<<<<<<< HEAD
+using Common.Filters;
+using System.Web.Mvc;
+using ExigoService;
+=======
+>>>>>>> improve_cart_item_creation
+
+
+namespace Common.ModelsEx.Shopping {
+
+    public class Product {
+
+        public static Product GetProduct(string itemCode) {
+
+            ExigoApi api = ExigoService.Exigo.WebService();
+
+            GetItemsRequest req = new GetItemsRequest();
+
+            List<string> lstItemCodes = new List<string>();
+
+            lstItemCodes.Add( itemCode );
+
+            req.ItemCodes = lstItemCodes.ToArray();
+
+            req.CurrencyCode = "usd";
+            req.WarehouseID = 1;
+            req.PriceType = 1;
+
+            GetItemsResponse res = api.GetItems( req );
+
+            foreach ( ItemResponse item in res.Items ) {
+
+                return new Product( item );
+
+            }
+
+            return new Product();
+
+        }
+
+
+
+
+        public Product() {
+
+            Quantity = 1;
+            Discounts = new List<Discount>(0);
+            EligibleDiscounts = new List<Discount>(0);
+
+        }
+
+        public Product( ItemResponse item ) : this() {
+
+            ItemCode = item.ItemCode;
+            CategoryId = item.CategoryID;
+
+            Price = item.Price;
+
+            Description = item.Description;
+
+            ShortDetail = item.ShortDetail;
+            ShortDetail2 = item.ShortDetail2;
+            ShortDetail3 = item.ShortDetail3;
+            ShortDetail4 = item.ShortDetail4;
+
+            LongDetail1 = item.LongDetail;
+            LongDetail2 = item.LongDetail2;
+            LongDetail3 = item.LongDetail3;
+<<<<<<< HEAD
+
+            InventoryStatus = Convert.ToString(item.InventoryStatus);
+=======
+            LongDetail4 = item.LongDetail4;
+
+            CategoryId = item.CategoryID;   // We just did this a few lines above, why are we doing it again?
+
+            InventoryStatus = Convert.ToString( item.InventoryStatus );
+>>>>>>> improve_cart_item_creation
+
+            // Convert pictures from filenames to URLs.
+            LargePicture = GlobalUtilities.GetProductImagePath( item.LargePicture );
+            SmallPicture = GlobalUtilities.GetProductImagePath( item.SmallPicture );
+            TinyPicture = GlobalUtilities.GetProductImagePath( item.TinyPicture );
+
+            // Product discount fields
+            Field4 = item.Field4;
+            Field5 = item.Field5;
+            Field6 = item.Field6;
+
+        }
+
+<<<<<<< HEAD
+        public Product(Item item)
+            : this()
+        {
+            ItemCode = item.ItemCode;
+            
+            Price = item.Price;
+            Description = item.ItemDescription;
+            ShortDetail = item.ShortDetail1;
+            ShortDetail2 = item.ShortDetail2;
+            ShortDetail3 = item.ShortDetail3;
+            ShortDetail4 = item.ShortDetail4;
+            LongDetail1 = item.LongDetail1;
+            LongDetail2 = item.LongDetail2;
+            LongDetail3 = item.LongDetail3;
+
+            //InventoryStatus = Convert.ToString(item.InventoryStatus);
+
+            // Convert pictures from filenames to URLs.
+            LargePicture = GlobalUtilities.GetProductImagePath(item.LargeImageUrl);
+            SmallPicture = GlobalUtilities.GetProductImagePath(item.SmallImageUrl);
+            TinyPicture = GlobalUtilities.GetProductImagePath(item.TinyImageUrl);
+
+            // Product discount fields
+            Field4 = item.Field4;
+            Field5 = item.Field5;
+            Field6 = item.Field6;
+        }
+=======
+>>>>>>> improve_cart_item_creation
+
+        //public ItemResponse Item { get; set; }
+        public string ItemCode { get; set; }
+        public int CategoryId { get; set; }
+
+        public decimal Price { get; set; }
+        public int PriceTypeID { get; set; }
+
+        public string Description { get; set; }
+
+        public string ShortDetail { get; set; }
+        public string ShortDetail2 { get; set; }
+        public string ShortDetail3 { get; set; }
+        public string ShortDetail4 { get; set; }
+
+        [AllowHtml]
+        public string LongDetail1 { get; set; }
+        [AllowHtml]
+        public string LongDetail2 { get; set; }
+        [AllowHtml]
+        public string LongDetail3 { get; set; }
+        [AllowHtml]
+        public string LongDetail4 { get; set; }
+
+        public string LargePicture { get; set; }
+        public string SmallPicture { get; set; }
+        public string TinyPicture { get; set; }
+
+        public string InventoryStatus { get; set; }
+        public decimal? PriceEachOverride { get; set; }
+
+        // TODO: Probably should rename to make these fields more obvious 
+        // of their intent.
+        public string Field4 { get; set; } // Rewards Cash Eligible
+        public string Field5 { get; set; } // 1/2 Rewards Credits Eligible
+        public string Field6 { get; set; } // New Products Launch Credits Eligible
+
+        public decimal AppliedAmount { get; set; } // Product Credit
+
+
+        public bool NewProductsLaunchRewardsCreditsEligible {
+            get { return !String.IsNullOrEmpty( Field6 ) && Field6 != "No"; }
+        }
+
+        public bool HalfOffRewardsCreditsEligible {
+            get { return !String.IsNullOrEmpty( Field5 ) && Field5 != "No"; }
+        }
+
+        public bool RetailPromoEligible { get; set; }
+
+        public decimal Quantity { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal DiscountedPrice {
+            get { return Discounts.Sum( d => d.Apply( this ) ); }
+        }
+
+        public List<Discount> Discounts { get; set; }
+
+        public List<Discount> EligibleDiscounts { get; set; }
+
+        public DiscountType ApplyDiscountType { get; set; }
+
+        public decimal? BusinessVolumeEachOverride { get; set; }
+        public decimal? CommissionableVolumeEachOverride { get; set; }
+
+
+        public decimal Subtotal {
+
+            get {
+
+                if ( 0 != Discounts.Count ) {
+
+                    return ( Price * Quantity ) - Discounts.Sum( d => d.AppliedAmount * Quantity );
+
+                }
+
+                return ( Price * Quantity );
+
+            }
+
+        }
+
+
+
+        public virtual Product AddToOrder( IOrder order ) {
+
+            var existing = order.Products
+                .FirstOrDefault( item => item.ItemCode == ItemCode && item.CategoryId == CategoryId && item.ApplyDiscountType == ApplyDiscountType );
+
+            if ( existing != default( Product ) ) {
+
+                // Update quantity of existing item.
+                existing.Quantity += this.Quantity;
+
+                // Need to return existing product as it is not the
+                // same instance of the product being added to cart.
+                return existing;
+
+            }
+
+            // Add the new item to the order.
+            order.Products.Add( this );
+
+            // If this is the first product added, return this instance.
+            return this;
+
+        }
+
+
+        public virtual void RemoveFromOrder( IOrder order, bool removeAllQty = false ) {
+
+            var existing = order.Products
+                .FirstOrDefault( item => item.ItemCode == ItemCode && item.CategoryId == CategoryId && item.ApplyDiscountType == ApplyDiscountType );
+
+            if ( existing == default( Product ) ) {
+                return;
+            }
+
+            // Update quantity of existing item.
+            existing.Quantity--;
+
+            if ( removeAllQty || existing.Quantity <= 0 ) {
+
+                // Remove the quantity from the line item.
+                order.Products.Remove( existing );
+
+            }
+
+        }
+
+
+        public virtual Discount GetEligibleDiscountByType( DiscountType discountType ) {
+
+            return ( from e in EligibleDiscounts
+                    where e.DiscountType.Equals(discountType)
+                    select e ).FirstOrDefault();
+
+        }
+
+
+        /// <summary>
+        /// Applies the <paramref name="discount"/> to this product.
+        /// </summary>
+        /// <param name="discount">The discount to apply.</param>
+        public virtual void ApplyDiscount( Discount discount ) {
+
+            // Apply the discount
+            discount.Apply( this );
+
+            // Add the discount to this product's list.
+            Discounts.Add( discount );
+
+        }
+
+<<<<<<< HEAD
+        public static Product GetProduct(string itemCode)
+        {
+            var item = Exigo.GetItem(itemCode);
+            if (item != null)
+                return new Product(item);
+            return new Product();
+        }
+=======
+
+>>>>>>> improve_cart_item_creation
+        /// <summary>
+        /// Unapplies the <paramref name="discount"/> from this product.
+        /// </summary>
+        /// <param name="discount">The discount to remove.</param>
+        public virtual void UnapplyDiscount( Discount discount ) {
+
+            // Attempt to remove the discount from the list.
+            Discounts.Remove( discount );
+
+        }
+
+    }
+
+}

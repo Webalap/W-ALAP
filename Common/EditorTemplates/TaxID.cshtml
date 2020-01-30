@@ -1,0 +1,10 @@
+﻿@model String
+
+@Html.LabelForModel(new { @class = "control-label" })
+<div class="input-group">
+    <span class="input-group-addon"><i class="fa-question-circle" data-toggle="popover" data-container="body" data-title="Why do we need this?" data-trigger="hover" data-placement="top" data-content="In order to be paid commissions, you must provide your SSN/Tax ID."></i></span>
+    @Html.TextBoxFor(m => m, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m) })
+</div>
+@Html.ValidationMessageFor(c => c)
+
+<script>$("#@(Html.IdFor(c => c))").popover();</script>

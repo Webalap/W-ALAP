@@ -1,0 +1,9 @@
+﻿@model String
+@{
+    var htmlAttributes = Html.GetEditorHtmlAttributes(new
+    { 
+        data_restrict_input = "loginname"
+    });
+}
+
+@Html.EditorFor(c => c, htmlAttributes)

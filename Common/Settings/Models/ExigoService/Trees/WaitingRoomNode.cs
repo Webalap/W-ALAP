@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace ExigoService
+{
+    public class WaitingRoomNode : IWaitingRoomNode
+    {
+        public int CustomerID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int? EnrollerID { get; set; }
+        public DateTime EnrollmentDate { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
+        public string FullName { get { return this.FirstName + " " + this.LastName; } }
+    }
+}

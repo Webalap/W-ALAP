@@ -1,0 +1,7 @@
+﻿@model String
+@Html.LabelForModel(new { @class = "control-label" })
+<div class="input-group">
+    <span class="input-group-addon"><i class="fa-envelope"></i></span>
+    @Html.TextBoxFor(c => c, new { type = "email", @class = "form-control", placeholder = Html.DisplayNameForModel() })
+</div>
+@Html.ValidationMessageFor(c => c)

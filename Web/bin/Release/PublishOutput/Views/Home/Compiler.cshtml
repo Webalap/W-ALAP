@@ -1,0 +1,381 @@
+﻿<style>
+    .active {
+        background-color: lightblue
+    }
+</style>
+<div class="row">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li id="ByWord" class="active"><a><i class="fa fa-file-word-o"></i> Word</a></li>
+                <li id="ByChar"><a><i class="fa fa-cc"></i> Char</a></li>
+                <li><a id="btnOff"><i class="fa fa-power-off"></i> Off</a></li>
+                <li><a id="btnPause"><i class="fa fa-pause"></i> Pause</a></li>
+                <li><a id="btnStop"><i class="fa fa-stop"></i> Stop</a></li>
+                <li><a id="btnRefresh"><i class="fa fa-refresh"></i> Refresh</a></li>
+                <li><a id="btnPlay"><i class="fa fa-play"></i> Speak</a></li>
+                <li><a id="btnCursorModeOn"><i class="fa fa-pause"></i> Cursor Mode Off</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form id="latexForm" action="Home/CompileLatex">
+            <div id="codeEditor" class="LatexText"></div>
+        </form>
+    </div>
+    <div class="col-md-6 container" id="colErrors">
+        <div id="pdfViewer"></div>
+    </div>
+    <input id="CursorModeInput" value="true" hidden="hidden" />
+    <div id="divAudio_Player" class="hidden">
+        <audio id="audio_player">
+            <source id="audio_player_wav" src="@Url.Action("Speak", "Home", new { text = "type something in first" })" type="audio/mp3" />
+            <embed height="50" width="100" src="@Url.Action("Speak", "Home", new { text = "type something in first" })">
+        </audio>
+    </div>
+</div>
+<input id="inputPause" hidden="hidden" value="false" />
+@section Scripts{
+    <script src="../../Content/LogParser/require.js" data-main="../../Content/LogParser/tests.js"></script>
+    <script type="text/javascript">
+        toastr.options.closeMethod = 'fadeOut';
+        toastr.options.closeDuration = 50;
+        //toastr.options.
+        toastr.options.closeEasing = 'swing';
+        var editor = CodeMirror.fromTextArea(
+            document.getElementById("codeEditor"),
+            {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: "night",
+                tabSize: 4,
+                scroll: false
+            }
+        );
+
+        $(window).ready(function () {
+            PDFObject.embed("", "#pdfViewer");
+            $("#compiler-side-item").addClass("active");
+
+            $.ajax({
+                url: '@Url.Action("GetSampleLatex")',
+                success: function (data)
+                {
+                     editor.setValue(data)
+                },
+                error: function (data) {
+                    toastr.error(data);
+                }
+            });
+            $("#btnPlay").on("click", function ()
+            {
+                var message = editor.getValue();//.split('\n').join('`!');
+                playText(message);
+            });
+            $("#btnCursorModeOn").on("click", function ()
+            {
+                toggleCursorMode();
+            });
+            var toggleCursorMode = function ()
+            {
+                $("#btnCursorModeOn").empty();
+                $.ajax({
+                    url: '@Url.Action("ToggleCursorMode", "Home")',
+                    method: 'GET',
+                    success: function (data) {
+                        if (data == '@Web.Services.Settings.EnableCursorMode') {
+                            debugger;
+                            $("#btnCursorModeOn").append('<i class="fa fa-pause"></i> Cursor Mode Off</a>');
+                            $("#CursorModeInput").val("false");
+                        }
+                        if (data == '@Web.Services.Settings.DisableCursorMode') {
+                            $("#btnCursorModeOn").append('<i class="fa fa-play"></i> Cursor Mode On</a>');
+                            $("#CursorModeInput").val("true");
+                        }
+                        playText(data);
+                    },
+                    error: function () { }
+                });
+            }
+            var playText = function (data)
+            {
+                var message = data;//.split('\n').join('`!');
+                var newUrl = '@Url.Action("Speak", "Home")?message=' + encodeURIComponent(message)  + '&timestamp=' + new Date().getTime();
+
+                var new_audio = $(this).attr('rel');
+                var source = '<audio id="audio_player">';
+                source += '<source id="audio_player_wav" src="' + newUrl + '"  type="audio/mp3" />';
+                source += '</audio>';
+                //play it
+                setTimeout(function() {
+                    $('#divAudio_Player').html(source);
+                    var aud = $('#audio_player').get(0);
+                    aud.play();
+                }, 500);
+            };
+            $("#btnOff").on("click", function ()
+            {
+                $("#audio_player").pause();
+            });
+
+            $("#btnPause").on("click", function ()
+            {
+                $("#btnPause").empty();
+                if ($("#inputPause").val() == 'true') {
+                    $("#btnPause").append('<i class="fa fa-pause"></i> Pause</a>');
+                    $("#audio_player").trigger("play");
+                    $("#inputPause").val('false');
+                }
+                else {
+                    $("#audio_player").trigger("pause");
+                    $("#inputPause").val('true');
+                    $("#btnPause").append('<i class="fa fa-play"></i> Resume</a>');
+                }
+                toastr.success('Audio has been Paused.');
+            });
+
+            $("#btnStop").on("click", function ()
+            {
+                $("#audio_player").trigger("pause");
+                $("#audio_player").currentTime = 0;
+                toastr.success('Audio has been stopped.');
+            });
+            $("#btnRefresh").on("click", function ()
+            {
+                $("#audio_player").trigger("pause");
+                $("#audio_player").currentTime = 0;
+            });
+            $("#ByChar").on("click", function () {
+                $("#ByWord").removeClass("active");
+                $("#ByChar").addClass("active");
+                $.ajax({
+                    url: '@Url.Action("ByChar", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                        if (data.ByChar) {
+                            toastr.success('Mode has been changed to Character mode.');
+                        }
+                    },
+                    error: function ()
+                    {
+                         toastr.error('Mode has been not changed to Charcter mode.');
+                    }
+                });
+            });
+            $("#ByWord").on("click", function () {
+                $("#audio_player").trigger("pause");
+                $("#ByChar").removeClass("active");
+                $("#ByWord").addClass("active");
+                $.ajax({
+                    url: '@Url.Action("ByWord", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                        if (data.ByWord) {
+                            toastr.success('Mode has been changed to Word mode.');
+                        }
+                    },
+                    error: function ()
+                    {
+                        toastr.error('Mode has been not changed to Charcter mode.');
+                    }
+                });
+            });
+
+            $(document).on("keydown", "#latexForm", function (e) {
+                var stringToRead = "@Web.Services.Settings.NoFurtherText";
+                var lineNumber = editor.getCursor().line;
+                var columnNumber = editor.getCursor().columnNumber;
+                if ((e.keyCode == 71) && e.shiftKey) { //g	71
+                    //TTS speaks line number of the cursor
+                    stringToRead = lineNumber + 1;
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 72) && e.shiftKey) { //h	72
+                    //To enable and disable curser mode
+                    toggleCursorMode();
+                    return false;
+                }
+                if ((e.keyCode == 73) && e.shiftKey) { //i 73
+                    //Speaks text from current cursor position toend of line.
+                    //It Speaks “No further text” if there is no text
+                    stringToRead = editor.getLine(lineNumber).slice(columnNumber);
+                    if (stringToRead == '') {
+                        stringToRead = '@Web.Services.Settings.NoFurtherText';
+                    }
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 74) && e.shiftKey) { //j	74
+                    //Speaks from immediate word at which the cursor is currently appearing
+                    //to end of line.Speaks “No further text” if there is no text
+                    //TO DO
+                    stringToRead = editor.getLine(lineNumber).slice(columnNumber);
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 75) && e.shiftKey) { //k	75
+                    //Speaks from start of the line till cursorposition
+                    stringToRead = editor.getLine(lineNumber).substring(0, columnNumber + 1);
+                    return false;
+                }
+                if ((e.keyCode == 76) && e.shiftKey) { //l	76
+                    //Speaks complete line where the cursor is at.Speaks “empty line”
+                    //if there is no text
+                    stringToRead = editor.getLine(lineNumber);
+                    if (stringToRead == "") {
+                        stringToRead = "@Web.Services.Settings.EmptyLine";
+                    }
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 77) && e.shiftKey) { //m	77
+                    //Speaks from immediate word to end of the document.
+                    stringToRead = editor.getLine(lineNumber);
+                    //TODO
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 79) && e.shiftKey) { //o	79
+                    //To turn the TTS of the system ON, by default it is in ON state
+                    stringToRead = "@Web.Services.Settings.TurnOnTTSSystem";
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 81) && e.shiftKey) { //q	81
+                    //To turn the TTS of the whole system OFF
+                    stringToRead = "@Web.Services.Settings.TurnOffTTSSystem";
+                    $("#btnStop").click();
+                    return false;
+                }
+                if ((e.keyCode == 83) && e.shiftKey) { //s	83
+                    //Starts reading the whole document depending upon the verbosity level
+                    stringToRead = editor.getValue();
+                    $("#btnPlay").click();
+                    return false;
+                }
+                if ((e.keyCode == 80) && e.shiftKey) { //p	80
+                    //To pause the TTS prompts
+                    stringToRead = "@Web.Services.Settings.TTSSystemIsPaused";
+                    $("#btnPause").click();
+                    return false;
+                }
+                if ((e.keyCode == 82) && e.shiftKey) { //r	82
+                    //To Resume the paused state of the TTS
+                    stringToRead = "@Web.Services.Settings.TTSSystemIsPaused";
+                    $("#btnPause").click();
+                    return false;
+                }
+                if ((e.keyCode == 69) && e.shiftKey) { //e	69
+                    //To set the TTS in ready state even if it is in paused state
+                    stringToRead = "@Web.Services.Settings.TTSSystemIsReady";
+                    playText(stringToRead);
+                    return false;
+                }
+                if ((e.keyCode == 87) && e.shiftKey) { //w	87
+                    //To set verbosity level of TTS by word (default state)
+                    stringToRead = "@Web.Services.Settings.VerbosityLevelOfTTSByWord";
+                    playText(stringToRead);
+                    $("#ByWord").click();
+                    return false;
+                }
+                if ((e.keyCode == 84) && e.shiftKey) { //c	84
+                    //To set verbosity level of TTS by character
+                    stringToRead = "@Web.Services.Settings.VerbosityLevelOfTTSByChar";
+                    playText(stringToRead);
+                    window.setTimeout(function ()
+                    {
+                        $("#ByChar").click();
+                    }, 1000);
+                    return false;
+                }
+                if ((e.keyCode == 67) && e.shiftKey) {//t	67
+                    var value = $(".tableForErrors");
+                    for (var i = 0; i < value.length; i++) {
+                        someError(value[i]);
+                    }
+                    return false;
+                }
+                if (e.keyCode == 13) {       // Speak New line on Enter
+                    //Speaks from immediate word to end of the document.
+                    var stringToRead = editor.getLine(lineToRead);
+                    //TODO
+                    if (stringToRead == "") {
+                        playText("@Web.Services.Settings.NewLine");
+                    }
+                    else {
+                        playText(stringToRead);
+                    }
+                    return false;
+
+                }
+                if (e.key == " ") {
+                    // Speak Imidiate word on space and return
+                    //columnNumber
+                    //Word Number to read
+                    stringToRead = editor.getLine(lineNumber).substring(0, columnNumber);
+                    var wordsInString = stringToRead.split(" ");
+                    var wordToRead = wordsInString[wordsInString.length - 1];
+                    playText(wordToRead);
+                }
+                // Implement Cursor play text
+                var cursorModeonOff = $("#CursorModeInput").val();
+                if (cursorModeonOff == "true" && e.keyCode != 13 && !e.shiftKey) {
+                    // Speak Chracter on Cursor mode
+                    var s = String.fromCharCode(e.which);
+                    if ((s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) ||
+                        (s.toUpperCase() !== s && s.toLowerCase() === s && e.shiftKey)) {
+                        playText("@Web.Services.Settings.CapsKeyIsOn");
+
+                    }
+                    if (e.key != " ") {
+                        playText(e.key);
+                    }
+
+                }
+                else {
+                    // Speak Previous word
+                    if (e.key == " ") {
+
+                    }
+                }
+            });
+        });
+        var someError = function (error) {
+            var ErrorText = error.getAttribute("name");
+            var newUrl = '@Url.Action("Speak", "Home")?message=' + encodeURIComponent(ErrorText)  + '&timestamp=' + new Date().getTime();
+            $.ajax({
+                    url: '@Url.Action("ByWord", "Home")',
+                    method: 'GET',
+                    success: function (data)
+                    {
+                        if (data.ByWord) {
+                            toastr.success('Mode has been changed to Word mode.');
+                        }
+                    },
+                    error: function ()
+                    {
+                        toastr.error('Mode has been not changed to Charcter mode.');
+                    }
+                });
+            var new_audio = $(this).attr('rel');
+            var source = '<audio id="audio_player">';
+            source += '<source id="audio_player_wav" src="' + newUrl + '"  type="audio/mp3" />';
+            source += '</audio>';
+            //play it
+            setTimeout(function() {
+                $('#divAudio_Player').html(source);
+                var aud = $('#audio_player').get(0);
+                aud.play();
+            }, 500);
+        };
+        $(document).ready(function ()
+        {
+
+        });
+    </script>
+}

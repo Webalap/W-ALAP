@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Common.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Common_SforceServices_SforceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://login.salesforce.com/services/Soap/c/41.0/0DF360000006hQh</Value>
+    </Setting>
+    <Setting Name="Common_SFMDS_MetadataService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://login.salesforce.com/services/Soap/m/38.0</Value>
+    </Setting>
+    <Setting Name="Common_Api_ExigoWebService_ExigoApi" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://indiahicks-api.exigo.com/3.0/ExigoApi.asmx</Value>
+    </Setting>
+    <Setting Name="Common_Api_ExigoAdminWebService_ExigoApiAdmin" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://indiahicks-api.exigo.com/admin/1.0/exigoapiadmin.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

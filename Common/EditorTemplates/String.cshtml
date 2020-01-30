@@ -1,0 +1,4 @@
+﻿@model String
+@Html.LabelForModel(new { @class = "control-label" })
+@Html.TextBoxFor(c => c, new { @class = "form-control", placeholder = Html.DisplayNameForModel() })
+@Html.ValidationMessageFor(c => c)

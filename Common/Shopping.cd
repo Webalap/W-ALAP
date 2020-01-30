@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Common.ModelsEx.Shopping.Discounts.Discount">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAQAAABAgAAAAAAAAAAAAAAAACACAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\Discount.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DiscountType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.FixedDiscount">
+    <Position X="10.5" Y="7.5" Width="1.5" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.Discounts.Discount" FixedFromPoint="true">
+      <Path>
+        <Point X="12.062" Y="6.824" />
+        <Point X="12.062" Y="7.125" />
+        <Point X="11.25" Y="7.125" />
+        <Point X="11.25" Y="7.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\FixedDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.PercentDiscount">
+    <Position X="14.25" Y="7.5" Width="1.5" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.Discounts.Discount" FixedFromPoint="true">
+      <Path>
+        <Point X="12.5" Y="6.824" />
+        <Point X="12.5" Y="7.125" />
+        <Point X="15" Y="7.125" />
+        <Point X="15" Y="7.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\PercentDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.HalfOffDiscount">
+    <Position X="14.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\HalfOffDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.BookingRewardDiscount">
+    <Position X="9" Y="10.5" Width="2" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.Discounts.FixedDiscount" FixedFromPoint="true">
+      <Path>
+        <Point X="11" Y="9.569" />
+        <Point X="11" Y="10.125" />
+        <Point X="10" Y="10.125" />
+        <Point X="10" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\BookingRewardDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.CashRewardDiscount">
+    <Position X="11.75" Y="10.5" Width="1.75" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.Discounts.FixedDiscount" FixedFromPoint="true">
+      <Path>
+        <Point X="11.5" Y="9.569" />
+        <Point X="11.5" Y="10.125" />
+        <Point X="12.625" Y="10.125" />
+        <Point X="12.625" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\CashRewardDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Product">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQIACBAQJkAgAAAQAAAAQAAAAEEIACAgAggASAiAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Product.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Discounts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.ShoppingExperience">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Order" Type="Common.ModelsEx.Shopping.IOrder" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.75" Y="1.375" />
+        <Point X="17.094" Y="1.375" />
+        <Point X="17.094" Y="2.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\ShoppingExperience.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Order" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.ShoppingCart" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFBQAAgUEgnAgAAAAgBAIDAAoEAQAACgAAAAQABAAQ=</HashCode>
+      <FileName>ModelsEx\Shopping\ShoppingCart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="RewardsAccounts" />
+      <Property Name="Products" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Common.ModelsEx.Event.RewardsAccount" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACQAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Event\RewardAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Enrollment">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAACAAAABAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Enrollment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Shop">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.ShoppingExperience" FixedFromPoint="true">
+      <Path>
+        <Point X="11.688" Y="1.796" />
+        <Point X="11.688" Y="2.125" />
+        <Point X="12" Y="2.125" />
+        <Point X="12" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.ShopEvent">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.ShoppingExperience" FixedFromPoint="true">
+      <Path>
+        <Point X="12.438" Y="1.796" />
+        <Point X="12.438" Y="2.125" />
+        <Point X="14.25" Y="2.125" />
+        <Point X="14.25" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\ShopEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.ServicesEx.ProductEligibilityDiscountValidator">
+    <Position X="1" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>ServicesEx\ProductEligibilityDiscountValidator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ReplicatedSite.Controllers.AbstractShoppingController">
+    <Position X="5.5" Y="12.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAgAIAAAAEAAEAAAAAAAAAAACAAAAAACA=</HashCode>
+      <FileName>Controllers\AbstractShoppingController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DiscountValidator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Common.ModelsEx.Shopping.Discounts.DiscountFactory">
+    <Position X="17.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\DiscountFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Common.ModelsEx.Shopping.IOrder">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Common.ModelsEx.Shopping.ITaxable" ManuallyRouted="true">
+      <Path>
+        <Point X="18.75" Y="1.796" />
+        <Point X="18.75" Y="1.983" />
+        <Point X="17.5" Y="1.983" />
+        <Point X="17.5" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="Common.ModelsEx.Shopping.IShippable" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="1.796" />
+        <Point X="20.5" Y="2.125" />
+        <Point X="17.875" Y="2.125" />
+        <Point X="17.875" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAEBAAAgEAAEAAAAAAgBAIBAAoEAQAAAgAAAAAAAAAQ=</HashCode>
+      <FileName>ModelsEx\Shopping\IOrder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Common.ModelsEx.Shopping.ITaxable">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\ITaxable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Common.ModelsEx.Shopping.IShippable">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>ModelsEx\Shopping\IShippable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Common.ServicesEx.IDiscountValidator">
+    <Position X="3" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ServicesEx\IDiscountValidator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Common.ModelsEx.Shopping.Discounts.DiscountType">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAAICABAABA=</HashCode>
+      <FileName>ModelsEx\Shopping\Discounts\DiscountType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

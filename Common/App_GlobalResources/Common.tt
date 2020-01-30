@@ -1,0 +1,265 @@
+﻿<#@ template hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)Common\bin\Common.dll" #>
+<#@ import namespace="Common" #>
+<#@ import namespace="Common.Api.ExigoOData" #>
+<#@ import namespace="ExigoService" #>
+<#@ assembly name="$(SolutionDir)Common\bin\Microsoft.Data.Services.Client.dll" #>
+<#@ assembly name="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #>
+<#@ import namespace="System.Data.Services.Client" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".resx" #>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+
+  <#
+	var connection = Exigo.Sql();
+	var command = new SqlCommand(); 
+	SqlDataReader reader;
+  #>
+
+
+  <!-- Bonuses by Period Type -->
+  <#
+  try {
+	command.Connection = connection;
+	command.CommandText = "select * from Bonuses";
+	connection.Open();
+	reader = command.ExecuteReader();
+	while(reader.Read())
+	{
+		#>
+  <data name="Bonus_<#=reader["PeriodTypeID"].ToString()#>_<#=reader["BonusID"].ToString().PadLeft(3, '0')#>" xml:space="preserve">
+    <value><#=reader["BonusDescription"]#></value>
+  </data>
+		<#
+	}
+	connection.Close();
+	}
+	catch(Exception ex) {#>
+	<data name="Bonus_0_000" xml:space="preserve">
+    <value>UNDEFINED</value>
+  </data>
+	<#}#>
+
+
+  <!-- Credit Card Types -->
+  <#
+	var creditCardTypes = Exigo.OData().CreditCardTypes;
+	foreach(var creditCardType in creditCardTypes) {
+  #>
+  <data name="CreditCardType_<#=creditCardType.CreditCardTypeID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=creditCardType.CreditCardTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Customer Statuses -->
+  <#
+	var customerStatuses = Exigo.OData().CustomerStatuses;
+	foreach(var customerStatus in customerStatuses) {
+  #>
+  <data name="CustomerStatus_<#=customerStatus.CustomerStatusID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=customerStatus.CustomerStatusDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Customer Types -->
+  <#
+	var customerTypes = Exigo.OData().CustomerTypes;
+	foreach(var customerType in customerTypes) {
+  #>
+  <data name="CustomerType_<#=customerType.CustomerTypeID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=customerType.CustomerTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Frequency Types -->
+  <#
+	var frequencyTypes = Exigo.OData().FrequencyTypes;
+	foreach(var frequencyType in frequencyTypes) {
+  #>
+  <data name="FrequencyType_<#=frequencyType.FrequencyTypeID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=frequencyType.FrequencyTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Languages -->
+  <#
+	var Languages = Exigo.OData().Languages;
+	foreach(var Language in Languages) {
+  #>
+  <data name="Language_<#=Language.LanguageID.ToString().PadLeft(3, '0')#>" xml:space="preserve">
+    <value><#=Language.LanguageDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Order Statuses -->
+  <#
+	var OrderStatuses = Exigo.OData().OrderStatuses;
+	foreach(var OrderStatus in OrderStatuses) {
+  #>
+  <data name="OrderStatus_<#=OrderStatus.OrderStatusID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=OrderStatus.OrderStatusDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Payable Types -->
+  <#
+	var PayableTypes = Exigo.OData().PayoutTypes;
+	foreach(var PayableType in PayableTypes) {
+  #>
+  <data name="PayableType_<#=PayableType.PayoutTypeID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=PayableType.PayoutTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Payment Types -->
+  <#
+	var PaymentTypes = Exigo.OData().PaymentTypes;
+	foreach(var PaymentType in PaymentTypes) {
+  #>
+  <data name="PaymentType_<#=PaymentType.PaymentTypeID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=PaymentType.PaymentTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Period Types -->
+  <#
+	var periodTypes = Exigo.OData().PeriodTypes;
+	foreach(var periodType in periodTypes) {
+  #>
+  <data name="PeriodType_<#=periodType.PeriodTypeID.ToString().PadLeft(3, '0')#>" xml:space="preserve">
+    <value><#=periodType.PeriodTypeDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Point Accounts -->
+  <#
+	var pointAccounts = Exigo.OData().PointAccounts;
+	foreach(var pointAccount in pointAccounts) {
+  #>
+  <data name="PointAccount_<#=pointAccount.PointAccountID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=pointAccount.PointAccountDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Ranks -->
+  <#
+	var ranks = Exigo.OData().Ranks;
+	foreach(var rank in ranks) {
+  #>
+  <data name="Rank_<#=rank.RankID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=rank.RankDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Subscriptions -->
+  <#
+	var subscriptions = Exigo.OData().Subscriptions;
+	foreach(var subscription in subscriptions) {
+  #>
+  <data name="Subscription_<#=subscription.SubscriptionID.ToString().PadLeft(2, '0')#>" xml:space="preserve">
+    <value><#=subscription.SubscriptionDescription#></value>
+  </data>  
+  <# } #>
+
+
+  <!-- Volumes -->
+  <#
+  try {
+	command.Connection = connection;
+	command.CommandText = "select * from CommissionVolumeTypes where CommissionRunID = (select max(CommissionRunID) from CommissionVolumeTypes)";
+	connection.Open();
+	reader = command.ExecuteReader();
+	while(reader.Read())
+	{
+		#>
+  <data name="Volume_<#=reader["VolumeTypeID"].ToString().PadLeft(3, '0')#>" xml:space="preserve">
+    <value><#=reader["VolumeTypeDescription"]#></value>
+  </data>
+		<#
+	}
+	connection.Close();
+	}
+	catch(Exception ex) { #>
+	<data name="Volume_000" xml:space="preserve">
+    <value>UNDEFINED</value>
+  </data>
+	<#}#>
+
+
+</root>

@@ -1,0 +1,22 @@
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\bin\Release\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\bin\Release\LatexDocument.pdb
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\obj\Release\LatexDocument.dll
+C:\Users\Matteo\Documents\Visual Studio 2015\Projects\LatexDocument\LatexDocument\obj\Release\LatexDocument.pdb
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\bin\Release\LatexDocument.dll
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\bin\Release\LatexDocument.pdb
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Release\LatexDocument.csprojResolveAssemblyReference.cache
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Release\LatexDocument.csproj.CoreCompileInputs.cache
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Release\LatexDocument.dll
+D:\WorkSpace\DotNet\WebTexk\LatexDocument\obj\Release\LatexDocument.pdb
+D:\WebLatex\WebTexk\LatexDocument\bin\Release\LatexDocument.dll
+D:\WebLatex\WebTexk\LatexDocument\bin\Release\LatexDocument.pdb
+D:\WebLatex\WebTexk\LatexDocument\obj\Release\LatexDocument.csprojResolveAssemblyReference.cache
+D:\WebLatex\WebTexk\LatexDocument\obj\Release\LatexDocument.csproj.CoreCompileInputs.cache
+D:\WebLatex\WebTexk\LatexDocument\obj\Release\LatexDocument.dll
+D:\WebLatex\WebTexk\LatexDocument\obj\Release\LatexDocument.pdb
+C:\Users\as\Documents\WebTexk\LatexDocument\bin\Release\LatexDocument.dll
+C:\Users\as\Documents\WebTexk\LatexDocument\bin\Release\LatexDocument.pdb
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Release\LatexDocument.csprojAssemblyReference.cache
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Release\LatexDocument.csproj.CoreCompileInputs.cache
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Release\LatexDocument.dll
+C:\Users\as\Documents\WebTexk\LatexDocument\obj\Release\LatexDocument.pdb

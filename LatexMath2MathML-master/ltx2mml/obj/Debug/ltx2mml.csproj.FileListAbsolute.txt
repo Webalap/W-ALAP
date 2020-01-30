@@ -1,0 +1,13 @@
+F:\TTS\LatexMath2MathML-master\ltx2mml\obj\Debug\ltx2mml.csprojAssemblyReference.cache
+F:\TTS\LatexMath2MathML-master\ltx2mml\obj\Debug\ltx2mml.csproj.CoreCompileInputs.cache
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\log4net.config
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\favicon.png
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\styles.css
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\ltx2mml.exe.config
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\ltx2mml.exe
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\ltx2mml.pdb
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\LatexMath2MathML.dll
+F:\TTS\LatexMath2MathML-master\ltx2mml\bin\Debug\LatexMath2MathML.pdb
+F:\TTS\LatexMath2MathML-master\ltx2mml\obj\Debug\ltx2mml.csproj.CopyComplete
+F:\TTS\LatexMath2MathML-master\ltx2mml\obj\Debug\ltx2mml.exe
+F:\TTS\LatexMath2MathML-master\ltx2mml\obj\Debug\ltx2mml.pdb
